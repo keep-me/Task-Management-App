@@ -106,4 +106,14 @@ except Exception as e:
     import traceback
     traceback.print_exc()
 
+try:
+    logger.info("Loading template routes...")
+    from routes import template_routes
+    app.include_router(template_routes.router, prefix="/api", tags=["templates"])
+    logger.info("Template routes loaded successfully")
+except Exception as e:
+    logger.error(f"Failed to load template routes: {e}")
+    import traceback
+    traceback.print_exc()
+
 logger.info("FastAPI application initialized successfully")

@@ -16,7 +16,9 @@ MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 in_memory_storage = {
     "users": [],
     "tasks": [],
-    "labels": []
+    "labels": [],
+    "templates": [],
+    "template_categories": []
 }
 
 # Global variables for lazy initialization
@@ -25,11 +27,13 @@ db = None
 users_collection = None
 tasks_collection = None
 labels_collection = None
+templates_collection = None
+template_categories_collection = None
 USE_MONGODB = None
 
 def _initialize_database():
     """Initialize database connection lazily"""
-    global client, db, users_collection, tasks_collection, labels_collection, USE_MONGODB
+    global client, db, users_collection, tasks_collection, labels_collection, templates_collection, template_categories_collection, USE_MONGODB
     
     if USE_MONGODB is not None:
         return  # Already initialized
@@ -43,6 +47,8 @@ def _initialize_database():
         users_collection = db["users"]
         tasks_collection = db["tasks"]
         labels_collection = db["labels"]
+        templates_collection = db["templates"]
+        template_categories_collection = db["template_categories"]
         USE_MONGODB = True
         print("Connected to MongoDB successfully")
     except Exception as e:
@@ -93,6 +99,8 @@ def _initialize_database():
         users_collection = MockCollection("users")
         tasks_collection = MockCollection("tasks")
         labels_collection = MockCollection("labels")
+        templates_collection = MockCollection("templates")
+        template_categories_collection = MockCollection("template_categories")
 
 # User functions
 def create_user(username: str, email: str, password: str):
@@ -149,4 +157,12 @@ def get_label_collection():
 def get_user_collection():
     _initialize_database()
     return users_collection
+
+def get_template_collection():
+    _initialize_database()
+    return templates_collection
+
+def get_template_category_collection():
+    _initialize_database()
+    return template_categories_collection
 
