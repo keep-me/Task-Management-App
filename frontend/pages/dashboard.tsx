@@ -698,6 +698,26 @@ export default function Dashboard() {
             >
               Goals
             </button>
+            <button 
+              className="tab-button"
+              onClick={() => window.location.href = '/templates'}
+              style={{ 
+                fontFamily: "'Playfair Display', serif", 
+                fontSize: "0.95rem",
+                color: "#20B2AA",
+                transition: "all 0.3s ease"
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.color = "#FF5844";
+                (e.currentTarget as HTMLElement).style.textShadow = "0 0 10px rgba(255, 88, 68, 0.5)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.color = "#20B2AA";
+                (e.currentTarget as HTMLElement).style.textShadow = "none";
+              }}
+            >
+              Templates
+            </button>
           </div>
 
           {/* Content Scroll Area */}
